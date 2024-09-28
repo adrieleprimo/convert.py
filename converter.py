@@ -24,5 +24,13 @@ def savePdfToExcel(tables, fileNameExcel):
             table.to_excel(writer, sheet_name=f'Table_{idx+1}', index=False)
         print(f'Conversion complete! File saved as {fileNameExcel}')
 
-
+def convertPdfToExcel(pdfPath, fileNameExcel):
+    tables = extractTabulaTables(pdfPath)
+    if not tables:
+        tables = extractCamelotTables(pdfPath)
+    
+    if tables:
+        savePdfToExcel(tables, fileNameExcel)
+    else:
+        print('No table was found in the PDF')
 
