@@ -12,3 +12,19 @@ def chooseFile():
         labelFile['text'] = f'Selected File: {os.path.basename(pdfPath)}'
         selectedPdfPath.set(pdfPath)
 
+def converter():
+    pdfPath = selectedPdfPath.get()
+    if not pdfPath:
+        showinfo('Error','Please, select a PDF file first.')
+        return
+    
+    excelFile = filedialog.asksaveasfilename(
+        defaultextension = '.xlsx',
+        filetypes = (('Excel File', '*.xlsx'),),
+        title = 'Save as'
+    )
+
+    if excelFile:
+        convertPdfToExcel(pdfPath, excelFile)
+        showinfo('Success', f'Conversion Complete! File saved as {excelFile}')
+    
